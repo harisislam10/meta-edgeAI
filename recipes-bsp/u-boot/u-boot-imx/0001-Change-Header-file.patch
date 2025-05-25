@@ -1,0 +1,40 @@
+From c805e97a3d04a23729df8606fbe1e4704c244aad Mon Sep 17 00:00:00 2001
+From: Haris Islam <islamharis87@gmail.com>
+Date: Thu, 8 May 2025 10:40:34 +0800
+Subject: [PATCH] Change Header file
+
+---
+ include/configs/imx8mp_evk.h | 11 ++++++-----
+ 1 file changed, 6 insertions(+), 5 deletions(-)
+
+diff --git a/include/configs/imx8mp_evk.h b/include/configs/imx8mp_evk.h
+index 42ccb864b8b..58e2cee17b9 100644
+--- a/include/configs/imx8mp_evk.h
++++ b/include/configs/imx8mp_evk.h
+@@ -164,17 +164,18 @@
+ #define CFG_SYS_INIT_RAM_SIZE	0x80000
+ 
+ 
+-/* Totally 6GB DDR */
++/* Totally 8GB DDR */
+ #define CFG_SYS_SDRAM_BASE		0x40000000
+-#define PHYS_SDRAM			0x40000000
+-#define PHYS_SDRAM_SIZE			0xC0000000	/* 3 GB */
+-#define PHYS_SDRAM_2			0x100000000
++#define PHYS_SDRAM				0x40000000
++#define PHYS_SDRAM_SIZE         0x100000000ULL  /* 4 GB */
++#define PHYS_SDRAM_2            0x140000000
+ #ifdef CONFIG_TARGET_IMX8MP_DDR4_EVK
+ #define PHYS_SDRAM_2_SIZE		0x40000000	/* 1 GB */
+ #else
+-#define PHYS_SDRAM_2_SIZE		0xC0000000	/* 3 GB */
++#define PHYS_SDRAM_2_SIZE      0x100000000ULL  /* 4 GB */
+ #endif
+ 
++
+ #define CFG_MXC_UART_BASE		UART2_BASE_ADDR
+ 
+ #define CFG_SYS_NAND_BASE           0x20000000
+-- 
+2.34.1
+

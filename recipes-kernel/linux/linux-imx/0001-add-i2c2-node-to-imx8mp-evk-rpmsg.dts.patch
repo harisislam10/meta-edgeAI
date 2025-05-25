@@ -1,0 +1,51 @@
+From 5d7e5b5f99277522c541ea833c69ed723ca4d56e Mon Sep 17 00:00:00 2001
+From: Haris Islam <islamharis87@gmail.com>
+Date: Fri, 16 May 2025 16:24:28 +0800
+Subject: [PATCH] add i2c2 node to imx8mp-evk-rpmsg.dts
+
+---
+ .../boot/dts/freescale/imx8mp-evk-rpmsg.dts   | 21 ++++++++++++-------
+ 1 file changed, 14 insertions(+), 7 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-evk-rpmsg.dts b/arch/arm64/boot/dts/freescale/imx8mp-evk-rpmsg.dts
+index ddf5f76adc3b..f3d4c9fa2073 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mp-evk-rpmsg.dts
++++ b/arch/arm64/boot/dts/freescale/imx8mp-evk-rpmsg.dts
+@@ -143,6 +143,20 @@ &flexcan1 {
+ &flexspi {
+ 	status = "disabled";
+ };
++&i2c2 {
++
++	clock-frequency = <400000>;
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_i2c2>;
++	status = "okay";
++
++	codec: wm8960@1a {
++		compatible = "wlf,wm8960,lpa";
++		reg = <0x1a>;
++		wlf,shared-lrclk;
++		SPKVDD1-supply = <&reg_audio_pwr>;
++	};
++};
+ 
+ /delete-node/ &i2c3;
+ 
+@@ -185,13 +199,6 @@ ov5640_mipi_1_ep: endpoint {
+ 			};
+ 		};
+ 	};
+-
+-	codec: wm8960@1a {
+-		compatible = "wlf,wm8960,lpa";
+-		reg = <0x1a>;
+-		wlf,shared-lrclk;
+-		SPKVDD1-supply = <&reg_audio_pwr>;
+-	};
+ };
+ 
+ &pwm4{
+-- 
+2.34.1
+

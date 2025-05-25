@@ -1,0 +1,25 @@
+From 1122c48d280442d9aa8ee694fd986c182719eb93 Mon Sep 17 00:00:00 2001
+From: Haris Islam <islamharis87@gmail.com>
+Date: Wed, 7 May 2025 23:52:15 +0800
+Subject: [PATCH] Modified Uboot
+
+---
+ board/freescale/imx8mp_evk/spl.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/board/freescale/imx8mp_evk/spl.c b/board/freescale/imx8mp_evk/spl.c
+index b7b21f0b490..6599624f9d3 100644
+--- a/board/freescale/imx8mp_evk/spl.c
++++ b/board/freescale/imx8mp_evk/spl.c
+@@ -60,6 +60,8 @@ int spl_board_boot_device(enum boot_device boot_dev_spl)
+ void spl_dram_init(void)
+ {
+ 	ddr_init(&dram_timing);
++	puts("Modified Uboot\n");
++
+ }
+ 
+ void spl_board_init(void)
+-- 
+2.34.1
+
