@@ -8,6 +8,8 @@ SRC_URI += "file://0001-Kernal-device-tree-modification.patch \
             file://0001-Removing-conflict-MX8MP_IOMUXC_GPIO1_IO04.patch \
             file://0001-Disable-vmmc-from-usdhc2.patch \
             file://0001-Change-usdhc-frequency-to-25MHZ.patch \
+            file://0001-toggle-pcal6408-high.patch \
+            file://0001-Update-gpio-hog.patch \
             file://gpio_fragment.cfg \
             file://pcal6408.cfg"
 
