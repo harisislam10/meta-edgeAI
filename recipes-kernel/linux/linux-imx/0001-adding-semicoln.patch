@@ -1,0 +1,25 @@
+From c35b1f6e0fbfc7f21e315fec6a6e8332dc428583 Mon Sep 17 00:00:00 2001
+From: Haris Islam <islamharis87@gmail.com>
+Date: Fri, 30 May 2025 00:41:56 +0800
+Subject: [PATCH] adding semicoln
+
+---
+ arch/arm64/boot/dts/freescale/imx8mp-evk.dts | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-evk.dts b/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
+index cce6131de8f6..e722ac6cd063 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
++++ b/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
+@@ -550,7 +550,7 @@ wifi-bt-enable-pins {
+     		output-high;
+     		line-name = "murata_wifi_bt_power";
+ 		};
+-	}
++	};
+ };
+ 
+ &i2c2 {
+-- 
+2.34.1
+
