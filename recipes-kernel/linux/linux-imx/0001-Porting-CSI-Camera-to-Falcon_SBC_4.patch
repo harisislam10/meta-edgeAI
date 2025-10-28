@@ -1,0 +1,44 @@
+From c9ec76ba99c00919266f923a9b3d1ea3309b0d1e Mon Sep 17 00:00:00 2001
+From: harisislam10 <islamharis87@gmail.com>
+Date: Mon, 29 Sep 2025 13:34:08 +0800
+Subject: [PATCH] Porting CSI Camera to Falcon_SBC_4
+
+---
+ arch/arm64/boot/dts/freescale/imx8mp-evk.dts | 20 ++++++++++----------
+ 1 file changed, 10 insertions(+), 10 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-evk.dts b/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
+index 7f6cc25fa449..c26bca4a1a84 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
++++ b/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
+@@ -1466,17 +1466,17 @@ MX8MP_IOMUXC_GPIO1_IO02__WDOG1_WDOG_B	0x166
+ 		>;
+ 	};
+ 
+-	//pinctrl_csi0_pwn: csi0_pwn_grp {
+-	//	fsl,pins = <
+-	//		MX8MP_IOMUXC_SD1_STROBE__GPIO2_IO11	0x10
+-	//	>;
+-	//};
++	pinctrl_csi0_pwn: csi0_pwn_grp {
++		fsl,pins = <
++			MX8MP_IOMUXC_SD1_STROBE__GPIO2_IO11	0x10
++		>;
++	};
+ 
+-	//pinctrl_csi0_rst: csi0_rst_grp {
+-	//	fsl,pins = <
+-	//		MX8MP_IOMUXC_GPIO1_IO06__GPIO1_IO06		0x10
+-	//	>;
+-	//};
++	pinctrl_csi0_rst: csi0_rst_grp {
++		fsl,pins = <
++			MX8MP_IOMUXC_GPIO1_IO06__GPIO1_IO06		0x10
++		>;
++	};
+ 
+ 	pinctrl_csi_mclk: csi_mclk_grp {
+ 		fsl,pins = <
+-- 
+2.34.1
+

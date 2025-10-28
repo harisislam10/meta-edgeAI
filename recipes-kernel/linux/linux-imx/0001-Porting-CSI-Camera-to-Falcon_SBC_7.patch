@@ -1,0 +1,67 @@
+From da596cbc994bc43f8ea65b40392912133c1810bc Mon Sep 17 00:00:00 2001
+From: harisislam10 <islamharis87@gmail.com>
+Date: Tue, 30 Sep 2025 14:28:48 +0800
+Subject: [PATCH] Porting CSI Camera to Falcon_SBC_7
+
+---
+ arch/arm64/boot/dts/freescale/imx8mp-evk.dts | 31 +++++++++++++++++---
+ 1 file changed, 27 insertions(+), 4 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-evk.dts b/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
+index 5049b8b16a48..73d2f65ef2ac 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
++++ b/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
+@@ -104,7 +104,31 @@ reg_audio_pwr: regulator-audio-pwr {
+ 		enable-active-high;
+ 		regulator-always-on;
+ 	};
++	// regulator for Cameras------------------
++	reg_dovdd: regulator-dovdd {
++		compatible = "regulator-fixed";
++		regulator-name = "dovdd";
++		regulator-min-microvolt = <1800000>;
++		regulator-max-microvolt = <1800000>;
++		regulator-always-on;
++	};
++
++	reg_avdd: regulator-avdd {
++		compatible = "regulator-fixed";
++		regulator-name = "avdd";
++		regulator-min-microvolt = <2800000>;
++		regulator-max-microvolt = <2800000>;
++		regulator-always-on;
++	};
+ 
++	reg_dvdd: regulator-dvdd {
++		compatible = "regulator-fixed";
++		regulator-name = "dvdd";
++		regulator-min-microvolt = <1500000>;
++		regulator-max-microvolt = <1500000>;
++		regulator-always-on;
++	};
++	//---------------------------------------
+ 	bt_sco_codec: bt_sco_codec {
+ 		#sound-dai-cells = <1>;
+ 		compatible = "linux,bt-sco";
+@@ -592,15 +616,14 @@ ov5640_0: ov5640_mipi@3c {
+ 		assigned-clocks = <&clk IMX8MP_CLK_IPP_DO_CLKO2>;
+ 		assigned-clock-parents = <&clk IMX8MP_CLK_24M>;
+ 		assigned-clock-rates = <24000000>;
+-		AVDD-supply = <&reg_3p3v>;
+-		DOVDD-supply = <&reg_3p3v>;
+-		DVDD-supply = <&reg_3p3v>;
++		AVDD-supply = <&reg_avdd>;
++		DOVDD-supply = <&reg_dovdd>;
++		DVDD-supply = <&reg_dvdd>;
+ 		mclk = <24000000>;
+ 		mclk_source = <0>;
+ 		mipi_csi;
+ 		csi_id = <0>;
+ 		powerdown-gpios = <&pca6416 1 GPIO_ACTIVE_HIGH>;  /* CAM1_EN */
+-		PVDD-supply = <&reg_3p3v>;
+ 		reset-gpios = <&pca6416 2 GPIO_ACTIVE_LOW>;       /* CAM1_RST */
+ 
+ 		status = "okay";
+-- 
+2.34.1
+

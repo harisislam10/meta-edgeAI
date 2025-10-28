@@ -1,0 +1,25 @@
+From 7da747afbc5670e3c1e275eba19b8abfeed1b997 Mon Sep 17 00:00:00 2001
+From: Haris Islam <islamharis87@gmail.com>
+Date: Wed, 10 Sep 2025 18:16:20 +0800
+Subject: [PATCH] pcie modify 4
+
+---
+ arch/arm64/boot/dts/freescale/imx8mp-evk.dts | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-evk.dts b/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
+index 28414a1f8f24..e68a21c79a40 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
++++ b/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
+@@ -69,7 +69,7 @@ reg_pcie0: regulator-pcie {
+ 		regulator-name = "MPCIE_3V3";
+ 		regulator-min-microvolt = <3300000>;
+ 		regulator-max-microvolt = <3300000>;
+-		gpio = <&gpio2 6 GPIO_ACTIVE_LOW>;
++		gpio = <&gpio2 6 GPIO_ACTIVE_HIGH>;
+ 		enable-active-high;
+ 		regulator-always-on;
+ 	};
+-- 
+2.34.1
+

@@ -1,0 +1,103 @@
+From 57e517c0dc595478fefb624535973ef606ca9e80 Mon Sep 17 00:00:00 2001
+From: harisislam10 <islamharis87@gmail.com>
+Date: Mon, 29 Sep 2025 12:04:14 +0800
+Subject: [PATCH] Porting CSI Camera to Falon_SBC
+
+---
+ arch/arm64/boot/dts/freescale/imx8mp-evk.dts | 48 +++++++++-----------
+ 1 file changed, 22 insertions(+), 26 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-evk.dts b/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
+index 9a8ae253716e..b03382b2a355 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
++++ b/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
+@@ -582,27 +582,25 @@ it6263_in: endpoint {
+ 		};
+ 	};
+ 
+-	ov5640_0: ov5640_mipi@3c {
++	ov5640_1: ov5640_mipi@3c {
+ 		compatible = "ovti,ov5640";
+ 		reg = <0x3c>;
+ 		pinctrl-names = "default";
+-		pinctrl-0 = <&pinctrl_csi0_pwn>, <&pinctrl_csi0_rst>, <&pinctrl_csi_mclk>;
++		pinctrl-0 = <&pinctrl_csi_mclk>;  		/*removing <&pinctrl_csi0_pwn>, <&pinctrl_csi0_rst> */
+ 		clocks = <&clk IMX8MP_CLK_IPP_DO_CLKO2>;
+ 		clock-names = "xclk";
+ 		assigned-clocks = <&clk IMX8MP_CLK_IPP_DO_CLKO2>;
+ 		assigned-clock-parents = <&clk IMX8MP_CLK_24M>;
+ 		assigned-clock-rates = <24000000>;
+ 		csi_id = <0>;
+-		powerdown-gpios = <&gpio2 11 GPIO_ACTIVE_HIGH>;
+-		reset-gpios = <&gpio1 6 GPIO_ACTIVE_LOW>;
+-		mclk = <24000000>;
+-		mclk_source = <0>;
+-		mipi_csi;
+-		status = "okay";
++		powerdown-gpios = <&pca6416 2 GPIO_ACTIVE_HIGH>;  /* CAM1_EN */
++		reset-gpios = <&pca6416 3 GPIO_ACTIVE_LOW>;       /* CAM1_RST */
++
++		status = "disabled";
+ 
+ 		port {
+-			ov5640_mipi_0_ep: endpoint {
+-				remote-endpoint = <&mipi_csi0_ep>;
++			ov5640_mipi_1_ep: endpoint {
++				remote-endpoint = <&mipi_csi1_ep>;
+ 				data-lanes = <1 2>;
+ 				clock-lanes = <0>;
+ 			};
+@@ -695,18 +693,16 @@ ov5640_1: ov5640_mipi@3c {
+ 		compatible = "ovti,ov5640";
+ 		reg = <0x3c>;
+ 		pinctrl-names = "default";
+-		pinctrl-0 = <&pinctrl_csi0_pwn>, <&pinctrl_csi0_rst>, <&pinctrl_csi_mclk>;
++		pinctrl-0 = <&pinctrl_csi_mclk>;  		/*removing <&pinctrl_csi0_pwn>, <&pinctrl_csi0_rst> */
+ 		clocks = <&clk IMX8MP_CLK_IPP_DO_CLKO2>;
+ 		clock-names = "xclk";
+ 		assigned-clocks = <&clk IMX8MP_CLK_IPP_DO_CLKO2>;
+ 		assigned-clock-parents = <&clk IMX8MP_CLK_24M>;
+ 		assigned-clock-rates = <24000000>;
+ 		csi_id = <0>;
+-		powerdown-gpios = <&gpio4 1 GPIO_ACTIVE_HIGH>;
+-		reset-gpios = <&gpio4 0 GPIO_ACTIVE_LOW>;
+-		mclk = <24000000>;
+-		mclk_source = <0>;
+-		mipi_csi;
++		powerdown-gpios = <&pca6416 5 GPIO_ACTIVE_HIGH>;  /* CAM2_EN */
++		reset-gpios = <&pca6416 6 GPIO_ACTIVE_LOW>;       /* CAM2_RST */
++
+ 		status = "disabled";
+ 
+ 		port {
+@@ -1470,17 +1466,17 @@ MX8MP_IOMUXC_GPIO1_IO02__WDOG1_WDOG_B	0x166
+ 		>;
+ 	};
+ 
+-	pinctrl_csi0_pwn: csi0_pwn_grp {
+-		fsl,pins = <
+-			MX8MP_IOMUXC_SD1_STROBE__GPIO2_IO11	0x10
+-		>;
+-	};
++	//pinctrl_csi0_pwn: csi0_pwn_grp {
++	//	fsl,pins = <
++	//		MX8MP_IOMUXC_SD1_STROBE__GPIO2_IO11	0x10
++	//	>;
++	//};
+ 
+-	pinctrl_csi0_rst: csi0_rst_grp {
+-		fsl,pins = <
+-			MX8MP_IOMUXC_GPIO1_IO06__GPIO1_IO06		0x10
+-		>;
+-	};
++	//pinctrl_csi0_rst: csi0_rst_grp {
++	//	fsl,pins = <
++	//		MX8MP_IOMUXC_GPIO1_IO06__GPIO1_IO06		0x10
++	//	>;
++	//};
+ 
+ 	pinctrl_csi_mclk: csi_mclk_grp {
+ 		fsl,pins = <
+-- 
+2.34.1
+

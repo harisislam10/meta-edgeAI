@@ -1,0 +1,34 @@
+From 222f02ba1f8be921c9f1fd639d065cee8cde595c Mon Sep 17 00:00:00 2001
+From: harisislam10 <islamharis87@gmail.com>
+Date: Thu, 2 Oct 2025 14:30:55 +0800
+Subject: [PATCH] Porting CSI Camera to Falcon_SBC_11
+
+---
+ arch/arm64/boot/dts/freescale/imx8mp-evk.dts | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-evk.dts b/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
+index 73d2f65ef2ac..9c0dc94f162a 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
++++ b/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
+@@ -610,7 +610,7 @@ ov5640_0: ov5640_mipi@3c {
+ 		compatible = "ovti,ov5640";
+ 		reg = <0x3c>;
+ 		pinctrl-names = "default";
+-		pinctrl-0 = <&pinctrl_csi_mclk>;  		/*removing <&pinctrl_csi0_pwn>, <&pinctrl_csi0_rst> */
++		//pinctrl-0 = <&pinctrl_csi_mclk>;  		/*removing <&pinctrl_csi0_pwn>, <&pinctrl_csi0_rst> */
+ 		clocks = <&clk IMX8MP_CLK_IPP_DO_CLKO2>;
+ 		clock-names = "xclk";
+ 		assigned-clocks = <&clk IMX8MP_CLK_IPP_DO_CLKO2>;
+@@ -624,7 +624,7 @@ ov5640_0: ov5640_mipi@3c {
+ 		mipi_csi;
+ 		csi_id = <0>;
+ 		powerdown-gpios = <&pca6416 1 GPIO_ACTIVE_HIGH>;  /* CAM1_EN */
+-		reset-gpios = <&pca6416 2 GPIO_ACTIVE_LOW>;       /* CAM1_RST */
++		//reset-gpios = <&pca6416 2 GPIO_ACTIVE_LOW>;       /* CAM1_RST */
+ 
+ 		status = "okay";
+ 
+-- 
+2.34.1
+

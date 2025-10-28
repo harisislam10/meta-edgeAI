@@ -1,0 +1,105 @@
+From 44376c3dd5d28ffc41eb701be00cb3e6863d0162 Mon Sep 17 00:00:00 2001
+From: harisislam10 <islamharis87@gmail.com>
+Date: Mon, 6 Oct 2025 16:35:03 +0800
+Subject: [PATCH] Adding-nau8822-sound-dts
+
+---
+ arch/arm64/boot/dts/freescale/imx8mp-evk.dts | 62 ++++++++++++--------
+ 1 file changed, 39 insertions(+), 23 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-evk.dts b/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
+index 3e7230c9f132..39290a7c7883 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
++++ b/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
+@@ -168,25 +168,38 @@ sound-hdmi {
+ 		status = "okay";
+ 	};
+ 
+-	sound-wm8960 {
+-		compatible = "fsl,imx-audio-wm8960";
+-		model = "wm8960-audio";
+-		audio-cpu = <&sai3>;
+-		audio-codec = <&codec>;
+-		audio-asrc = <&easrc>;
+-		hp-det-gpio = <&gpio4 28 0>;
+-		audio-routing =
+-			"Headphone Jack", "HP_L",
+-			"Headphone Jack", "HP_R",
+-			"Ext Spk", "SPK_LP",
+-			"Ext Spk", "SPK_LN",
+-			"Ext Spk", "SPK_RP",
+-			"Ext Spk", "SPK_RN",
+-			"LINPUT1", "Mic Jack",
+-			"LINPUT3", "Mic Jack",
+-			"Mic Jack", "MICB";
++	sound-nau8822 {
++		compatible = "simple-audio-card";
++		simple-audio-card,name = "nau8822-audio";
++		simple-audio-card,format = "i2s";
++		simple-audio-card,bitclock-master = <&dailink_master>;
++		simple-audio-card,frame-master = <&dailink_master>;
++		simple-audio-card,widgets =
++			"Headphone", "Headphone Jack",
++			"Speaker", "Ext Spk",
++			"Microphone", "Mic Jack";
++		simple-audio-card,routing =
++			"Headphone Jack", "HPL",
++			"Headphone Jack", "HPR",
++			"Ext Spk", "AUXOUT1",
++			"Ext Spk", "AUXOUT2",
++			"LMICN", "Mic Jack",
++			"LMICP", "Mic Jack",
++			"RMICN", "Mic Jack",
++			"RMICP", "Mic Jack";
++		simple-audio-card,hp-det-gpio = <&gpio4 28 GPIO_ACTIVE_HIGH>;
++
++		simple-audio-card,cpu {
++			sound-dai = <&sai3>;
++		};
++
++		dailink_master: simple-audio-card,codec {
++			sound-dai = <&codec>;
++			clocks = <&audio_blk_ctrl IMX8MP_CLK_AUDIO_BLK_CTRL_SAI3_MCLK1>;
++		};
+ 	};
+ 
++
+ 	sound-micfil {
+ 		compatible = "fsl,imx-audio-card";
+ 		model = "micfil-audio";
+@@ -676,16 +689,18 @@ typec_con_ss: endpoint {
+ 			};
+ 		};
+ 	};
+-	codec: wm8960@1a {
+-		compatible = "wlf,wm8960";
++	codec: nau8822@1a {
++		compatible = "nuvoton,nau8822";
+ 		reg = <0x1a>;
+ 		clocks = <&audio_blk_ctrl IMX8MP_CLK_AUDIO_BLK_CTRL_SAI3_MCLK1>;
+ 		clock-names = "mclk";
+-		wlf,shared-lrclk;
+-		wlf,hp-cfg = <3 2 3>;
+-		wlf,gpio-cfg = <1 3>;
+-		SPKVDD1-supply = <&reg_audio_pwr>;
++		AVDD-supply = <&reg_audio_pwr>;
++		HPVDD-supply = <&reg_audio_pwr>;
++		CPVDD-supply = <&reg_audio_pwr>;
++		MICVDD-supply = <&reg_audio_pwr>;
++		status = "okay";
+ 	};
++
+ };
+ 
+ &i2c3 {
+@@ -915,6 +930,7 @@ &micfil {
+ };
+ 
+ &sai3 {
++	#sound-dai-cells = <0>;
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&pinctrl_sai3>;
+ 	assigned-clocks = <&clk IMX8MP_CLK_SAI3>;
+-- 
+2.34.1
+

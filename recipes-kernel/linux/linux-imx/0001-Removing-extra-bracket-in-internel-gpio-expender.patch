@@ -1,0 +1,24 @@
+From b5065b86bcd834493959b8ed0dc1ff7893482b79 Mon Sep 17 00:00:00 2001
+From: harisislam10 <islamharis87@gmail.com>
+Date: Thu, 25 Sep 2025 16:44:11 +0800
+Subject: [PATCH] Removing extra bracket in internel gpio expender
+
+---
+ arch/arm64/boot/dts/freescale/imx8mp-evk.dts | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-evk.dts b/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
+index 8d82e8ba6847..d70b567116ce 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
++++ b/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
+@@ -695,7 +695,6 @@ pca6416: gpio@20 {
+ 			"LVDS1_RST",
+ 			"FAN_EN";
+ 	};
+-};
+ 
+ 	ov5640_1: ov5640_mipi@3c {
+ 		compatible = "ovti,ov5640";
+-- 
+2.34.1
+

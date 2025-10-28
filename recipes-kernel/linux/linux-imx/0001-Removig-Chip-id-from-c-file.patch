@@ -1,0 +1,35 @@
+From 960f8cffcb5418c6ec3edeb72095eb64e26cf49b Mon Sep 17 00:00:00 2001
+From: harisislam10 <islamharis87@gmail.com>
+Date: Sun, 5 Oct 2025 16:21:50 +0800
+Subject: [PATCH] Removig Chip id from c file
+
+---
+ drivers/media/i2c/ov5640.c | 12 ------------
+ 1 file changed, 12 deletions(-)
+
+diff --git a/drivers/media/i2c/ov5640.c b/drivers/media/i2c/ov5640.c
+index 1a40f34a6d8c..0618ea4dab2b 100644
+--- a/drivers/media/i2c/ov5640.c
++++ b/drivers/media/i2c/ov5640.c
+@@ -3843,18 +3843,6 @@ static int ov5640_check_chip_id(struct ov5640_dev *sensor)
+ 	if (ret)
+ 		return ret;
+ 
+-	ret = ov5640_read_reg16(sensor, OV5640_REG_CHIP_ID, &chip_id);
+-	if (ret) {
+-		dev_err(&client->dev, "%s: failed to read chip identifier\n",
+-			__func__);
+-		goto power_off;
+-	}
+-
+-	if (chip_id != 0x5640) {
+-		dev_err(&client->dev, "%s: wrong chip identifier, expected 0x5640, got 0x%x\n",
+-			__func__, chip_id);
+-		ret = -ENXIO;
+-	}
+ 
+ power_off:
+ 	ov5640_set_power_off(sensor);
+-- 
+2.34.1
+

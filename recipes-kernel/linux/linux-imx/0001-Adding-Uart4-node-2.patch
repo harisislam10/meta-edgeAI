@@ -1,0 +1,29 @@
+From 928876161c9547e320374761169eede398a25ba5 Mon Sep 17 00:00:00 2001
+From: harisislam10 <islamharis87@gmail.com>
+Date: Thu, 23 Oct 2025 16:33:14 +0800
+Subject: [PATCH] Adding Uart4 node-2
+
+---
+ arch/arm64/boot/dts/freescale/imx8mp-evk.dts | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-evk.dts b/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
+index afb2db7013d7..c0afabf5fb48 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
++++ b/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
+@@ -1409,10 +1409,8 @@ MX8MP_IOMUXC_ECSPI1_MISO__UART3_DCE_CTS		0x140
+ // Adding uart4 pinctrl group.
+ 	pinctrl_uart4: uart4grp {
+ 		fsl,pins = <
+-			MX8MP_IOMUXC_ECSPI1_SCLK__UART4_DCE_RX		0x140
+-			MX8MP_IOMUXC_ECSPI1_MOSI__UART4_DCE_TX		0x140
+-			MX8MP_IOMUXC_ECSPI1_SS0__UART4_DCE_RTS		0x140
+-			MX8MP_IOMUXC_ECSPI1_MISO__UART4_DCE_CTS		0x140
++			MX8MP_IOMUXC_UART4_RXD__UART4_DCE_RX 0x140
++            MX8MP_IOMUXC_UART4_TXD__UART4_DCE_TX 0x140
+ 		>;
+ 	};
+ // Adding pincontrol for usdhc1.
+-- 
+2.34.1
+

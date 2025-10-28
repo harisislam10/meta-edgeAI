@@ -1,0 +1,50 @@
+From 321ecda9eff642f1acd7c6f8818b8347dee309fa Mon Sep 17 00:00:00 2001
+From: harisislam10 <islamharis87@gmail.com>
+Date: Thu, 23 Oct 2025 16:17:24 +0800
+Subject: [PATCH] Adding Uart4 node
+
+---
+ arch/arm64/boot/dts/freescale/imx8mp-evk.dts | 20 ++++++++++++++++++++
+ 1 file changed, 20 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-evk.dts b/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
+index 39290a7c7883..a484e10deb78 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
++++ b/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
+@@ -1042,6 +1042,16 @@ bluetooth {
+         shutdown-gpios = <&pcal6408a 4 GPIO_ACTIVE_HIGH>; // **PCAL6408A Pin P4 (if BT_REG_EN)**
+     };
+ };
++//Adding Uart 4 
++
++&uart4 {
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_uart4>;
++	assigned-clocks = <&clk IMX8MP_CLK_UART4>;
++	assigned-clock-parents = <&clk IMX8MP_SYS_PLL1_80M>;
++	status = "okay";
++};
++
+ //Adding new node nmae usdhc1 for wifi
+ &usdhc1 {
+ 	assigned-clocks = <&clk IMX8MP_CLK_USDHC1>;
+@@ -1390,6 +1400,16 @@ MX8MP_IOMUXC_ECSPI1_SS0__UART3_DCE_RTS		0x140
+ 			MX8MP_IOMUXC_ECSPI1_MISO__UART3_DCE_CTS		0x140
+ 		>;
+ 	};
++
++// Adding uart4 pinctrl group.
++	pinctrl_uart4: uart4grp {
++		fsl,pins = <
++			MX8MP_IOMUXC_ECSPI1_SCLK__UART4_DCE_RX		0x140
++			MX8MP_IOMUXC_ECSPI1_MOSI__UART4_DCE_TX		0x140
++			MX8MP_IOMUXC_ECSPI1_SS0__UART4_DCE_RTS		0x140
++			MX8MP_IOMUXC_ECSPI1_MISO__UART4_DCE_CTS		0x140
++		>;
++	};
+ // Adding pincontrol for usdhc1.
+ 
+ 	pinctrl_usdhc1: usdhc1grp {
+-- 
+2.34.1
+

@@ -1,0 +1,29 @@
+From 8c4f54ce76074b2e787d9ec133907ec108e0bb0d Mon Sep 17 00:00:00 2001
+From: harisislam10 <islamharis87@gmail.com>
+Date: Wed, 1 Oct 2025 16:00:43 +0800
+Subject: [PATCH] Porting CSI Camera to Falcon_SBC_10
+
+---
+ arch/arm64/boot/dts/freescale/imx8mp-evk.dts | 6 ------
+ 1 file changed, 6 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-evk.dts b/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
+index 3e829d0b2526..065a53b94789 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
++++ b/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
+@@ -704,12 +704,6 @@ fan_en_hog: fan-en-hog {
+ 			output-high;                     /* drive it high at boot */
+ 			line-name = "FAN_EN_HOG";
+ 		};
+-		cam1_en_hog: cam1-en-hog {
+-			gpio-hog;
+-			gpios = <1 GPIO_ACTIVE_HIGH>;
+-			output-high;
+-			line-name = "CAM1_EN_HOG";
+-		};
+     };
+ 
+ 	ov5640_1: ov5640_mipi@3c {
+-- 
+2.34.1
+

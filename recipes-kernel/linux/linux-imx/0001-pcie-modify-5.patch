@@ -1,0 +1,37 @@
+From 69dde7da956446188ca3eb21faac24a3f1bdeab4 Mon Sep 17 00:00:00 2001
+From: Haris Islam <islamharis87@gmail.com>
+Date: Wed, 10 Sep 2025 20:31:10 +0800
+Subject: [PATCH] pcie modify 4
+
+---
+ arch/arm64/boot/dts/freescale/imx8mp-evk.dts | 5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-evk.dts b/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
+index e68a21c79a40..d9c65f38bda7 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
++++ b/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
+@@ -69,8 +69,6 @@ reg_pcie0: regulator-pcie {
+ 		regulator-name = "MPCIE_3V3";
+ 		regulator-min-microvolt = <3300000>;
+ 		regulator-max-microvolt = <3300000>;
+-		gpio = <&gpio2 6 GPIO_ACTIVE_HIGH>;
+-		enable-active-high;
+ 		regulator-always-on;
+ 	};
+ 
+@@ -1212,10 +1210,9 @@ MX8MP_IOMUXC_GPIO1_IO08__GPIO1_IO08	0x16
+ 
+ 	pinctrl_pcie0: pcie0grp {
+ 		fsl,pins = <
+-			//MX8MP_IOMUXC_I2C4_SCL__PCIE_CLKREQ_B	0x60 /* open drain, pull up */
++			MX8MP_IOMUXC_I2C4_SCL__PCIE_CLKREQ_B   0x60  /* CLKREQ_B */
+ 			MX8MP_IOMUXC_SD1_DATA5__GPIO2_IO07    0x40  /* RESET_N */
+ 			MX8MP_IOMUXC_SD1_DATA6__GPIO2_IO08    0x40  /* nPWAKE_N */
+-			//MX8MP_IOMUXC_I2C4_SDA__GPIO5_IO21	0x1c4
+ 		>;
+ 	};
+ 
+-- 
+2.34.1
+

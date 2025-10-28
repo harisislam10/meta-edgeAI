@@ -1,0 +1,29 @@
+From 67528dc83972813ec306c95213142cc7de148253 Mon Sep 17 00:00:00 2001
+From: harisislam10 <islamharis87@gmail.com>
+Date: Thu, 25 Sep 2025 11:00:55 +0800
+Subject: [PATCH] usdhc1 fixation 3
+
+---
+ arch/arm64/boot/dts/freescale/imx8mp-evk.dts | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-evk.dts b/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
+index f44f0b6888ee..3b332317dd10 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
++++ b/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
+@@ -997,9 +997,9 @@ &usdhc1 {
+ 	assigned-clocks = <&clk IMX8MP_CLK_USDHC1>;
+ 	assigned-clock-rates = <400000000>;//change ro 400MHz
+ 	pinctrl-names = "default", "state_100mhz", "state_200mhz";
+-	pinctrl-0 = <&pinctrl_usdhc1>, <&pinctrl_usdhc1_gpio>;
+-	pinctrl-1 = <&pinctrl_usdhc1_100mhz>, <&pinctrl_usdhc1_gpio>;
+-	pinctrl-2 = <&pinctrl_usdhc1_200mhz>, <&pinctrl_usdhc1_gpio>;
++	pinctrl-0 = <&pinctrl_usdhc1>;
++	pinctrl-1 = <&pinctrl_usdhc1_100mhz>;
++	pinctrl-2 = <&pinctrl_usdhc1_200mhz>;
+ 	//cd-gpios = <&gpio2 12 GPIO_ACTIVE_LOW>;
+ 	//vmmc-supply = <&reg_usdhc2_vmmc>;
+ 	bus-width = <4>;
+-- 
+2.34.1
+

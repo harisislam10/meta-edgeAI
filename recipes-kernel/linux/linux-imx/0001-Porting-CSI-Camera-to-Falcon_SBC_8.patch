@@ -1,0 +1,55 @@
+From 97e749d433ebf47f9b90ebd7f378c50b3e09b111 Mon Sep 17 00:00:00 2001
+From: harisislam10 <islamharis87@gmail.com>
+Date: Wed, 1 Oct 2025 10:06:59 +0800
+Subject: [PATCH] Porting CSI Camera to Falcon_SBC_8
+
+---
+ arch/arm64/boot/dts/freescale/imx8mp-evk.dts | 18 +++++++++++++++---
+ 1 file changed, 15 insertions(+), 3 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-evk.dts b/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
+index 73d2f65ef2ac..3e7230c9f132 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
++++ b/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
+@@ -575,7 +575,7 @@ wifi-bt-enable-pins {
+ };
+ 
+ &i2c2 {
+-	clock-frequency = <400000>;
++	clock-frequency = <100000>;
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&pinctrl_i2c2>;
+ 	status = "okay";
+@@ -623,8 +623,8 @@ ov5640_0: ov5640_mipi@3c {
+ 		mclk_source = <0>;
+ 		mipi_csi;
+ 		csi_id = <0>;
+-		powerdown-gpios = <&pca6416 1 GPIO_ACTIVE_HIGH>;  /* CAM1_EN */
+-		reset-gpios = <&pca6416 2 GPIO_ACTIVE_LOW>;       /* CAM1_RST */
++		//powerdown-gpios = <&pca6416 1 GPIO_ACTIVE_HIGH>;  /* CAM1_EN */
++		//reset-gpios = <&pca6416 2 GPIO_ACTIVE_LOW>;       /* CAM1_RST */
+ 
+ 		status = "okay";
+ 
+@@ -717,6 +717,18 @@ pca6416: gpio@20 {
+             "LVDS1_UPDN",
+             "LVDS1_RST",
+             "FAN_EN";
++		fan_en_hog: fan-en-hog {
++			gpio-hog;
++			gpios = <15 GPIO_ACTIVE_HIGH>;   /* pin 15, active high */
++			output-high;                     /* drive it high at boot */
++			line-name = "FAN_EN_HOG";
++		};
++		cam1_en_hog: cam1-en-hog {
++			gpio-hog;
++			gpios = <1 GPIO_ACTIVE_HIGH>;
++			output-high;
++			line-name = "CAM1_EN_HOG";
++		};
+     };
+ 
+ 	ov5640_1: ov5640_mipi@3c {
+-- 
+2.34.1
+

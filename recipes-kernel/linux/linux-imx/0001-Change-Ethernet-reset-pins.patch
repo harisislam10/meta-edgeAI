@@ -1,0 +1,29 @@
+From 2e0d1355721d2b6449ae86cc5bcfa18e7c9a8373 Mon Sep 17 00:00:00 2001
+From: Haris Islam <islamharis87@gmail.com>
+Date: Sat, 31 May 2025 15:03:35 +0800
+Subject: [PATCH] Change Ethernet reset pins
+
+---
+ arch/arm64/boot/dts/freescale/imx8mp-evk.dts | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-evk.dts b/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
+index adb05e3340fd..124b5c847911 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
++++ b/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
+@@ -315,9 +315,9 @@ ethphy0: ethernet-phy@1 {
+ 			compatible = "ethernet-phy-ieee802.3-c22";
+ 			reg = <1>;
+ 			eee-broken-1000t;
+-			reset-gpios = <&gpio4 22 GPIO_ACTIVE_LOW>;
+-			reset-assert-us = <10000>;
+-			reset-deassert-us = <80000>;
++			//reset-gpios = <&gpio4 22 GPIO_ACTIVE_LOW>;
++			//reset-assert-us = <10000>;
++			//reset-deassert-us = <80000>;
+ 			realtek,clkout-disable;
+ 		};
+ 	};
+-- 
+2.34.1
+

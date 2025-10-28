@@ -1,0 +1,38 @@
+From 2db0d8b69118ab572ad82dea3dd628cf874ad464 Mon Sep 17 00:00:00 2001
+From: harisislam10 <islamharis87@gmail.com>
+Date: Thu, 25 Sep 2025 10:45:19 +0800
+Subject: [PATCH] removing comment section from usdhc2 wifi
+
+---
+ arch/arm64/boot/dts/freescale/imx8mp-evk.dts | 15 ---------------
+ 1 file changed, 15 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-evk.dts b/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
+index 7073128935b2..f44f0b6888ee 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
++++ b/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
+@@ -1034,21 +1034,6 @@ &usdhc2 {
+ 	bus-width = <4>;
+ 	status = "okay";
+ 
+-	/*brcmfmac: wifi@0 {
+-        compatible = "brcm,cyw4373-sdio";
+-        reg = <1>;
+-        // Wi-Fi Host Wake (WL_HOST_WAKE) from Murata connected to PCAL6408A P3
+-        interrupt-parent = <&pcal6408a>;
+-        interrupts = <3 IRQ_TYPE_LEVEL_HIGH>; // **PCAL6408A Pin P3**
+-        interrupt-names = "host-wake";
+-        #address-cells = <1>;
+-        #size-cells = <0>;
+-        core-index = <0>;
+-
+-        // Wi-Fi Power Enable (WL_REG_EN) connected to PCAL6408A P0
+-        enable-gpios = <&pcal6408a 0 GPIO_ACTIVE_HIGH>; // **PCAL6408A Pin P0**
+-        post-power-on-delay-ms = <200>; // Recommended delay
+-    };/*
+ };
+ 
+ &usdhc3 {
+-- 
+2.34.1
+

@@ -1,0 +1,53 @@
+From 5b41270e7a0e0460e6f3baed43bba41a2d582b82 Mon Sep 17 00:00:00 2001
+From: harisislam10 <islamharis87@gmail.com>
+Date: Tue, 7 Oct 2025 14:51:11 +0800
+Subject: [PATCH] Adding-nau8822-sound-dts_4
+
+---
+ arch/arm64/boot/dts/freescale/imx8mp-evk.dts | 29 ++++++++++++--------
+ 1 file changed, 17 insertions(+), 12 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-evk.dts b/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
+index 79e1c5e4bc78..8dcef96dedd6 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
++++ b/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
+@@ -174,19 +174,24 @@ sound-nau8822 {
+ 		simple-audio-card,format = "i2s";
+ 		simple-audio-card,bitclock-master = <&dailink_master>;
+ 		simple-audio-card,frame-master = <&dailink_master>;
+-		simple-audio-card,widgets =
+-			"Headphone", "Headphone Jack",
+-			"Speaker", "Ext Spk",
+-			"Microphone", "Mic Jack";
+ 		simple-audio-card,routing =
+-			"Headphone Jack", "HPL",
+-			"Headphone Jack", "HPR",
+-			"Ext Spk", "AUXOUT1",
+-			"Ext Spk", "AUXOUT2",
+-			"LMICN", "Mic Jack",
+-			"LMICP", "Mic Jack",
+-			"RMICN", "Mic Jack",
+-			"RMICP", "Mic Jack";
++			"Headphones", "LHP",
++			"Headphones", "RHP",
++			"Speaker", "LSPK",
++			"Speaker", "RSPK",
++			"Line Out", "AUXOUT1",
++			"Line Out", "AUXOUT2",
++			"LAUX", "Line In",
++			"RAUX", "Line In",
++			"LMICP", "Mic In",
++			"RMICP", "Mic In";
++		simple-audio-card,widgets =
++			"Headphones", "Headphones",
++			"Line Out", "Line Out",
++			"Speaker", "Speaker",
++			"Microphone", "Mic In",
++			"Line", "Line In";
++
+ 		simple-audio-card,hp-det-gpio = <&gpio4 28 GPIO_ACTIVE_HIGH>;
+ 
+ 		simple-audio-card,cpu {
+-- 
+2.34.1
+

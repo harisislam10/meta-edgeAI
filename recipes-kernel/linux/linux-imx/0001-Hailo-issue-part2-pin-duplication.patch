@@ -1,0 +1,44 @@
+From d982c8b280ca99cd45fd5ec2f251fe24a5211bf5 Mon Sep 17 00:00:00 2001
+From: Haris Islam <islamharis87@gmail.com>
+Date: Wed, 10 Sep 2025 12:08:20 +0800
+Subject: [PATCH] Hailo issue part2 pin duplication
+
+---
+ arch/arm64/boot/dts/freescale/imx8mp-evk.dts | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-evk.dts b/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
+index e58e69eea5d2..912fe6808a49 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
++++ b/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
+@@ -69,9 +69,9 @@ reg_pcie0: regulator-pcie {
+ 		regulator-name = "MPCIE_3V3";
+ 		regulator-min-microvolt = <3300000>;
+ 		regulator-max-microvolt = <3300000>;
+-		gpio = <&gpio2 6 GPIO_ACTIVE_LOW>;
+-		enable-active-low;
+-		//regulator-always-on;
++		//gpio = <&gpio2 6 GPIO_ACTIVE_LOW>;
++		enable-active-high;
++		regulator-always-on;
+ 	};
+ 
+ 	reg_usb_vbus: regulator-vbus {
+@@ -1212,12 +1212,12 @@ MX8MP_IOMUXC_GPIO1_IO08__GPIO1_IO08	0x16
+ 
+ 	pinctrl_pcie0: pcie0grp {
+ 		fsl,pins = <
+-			MX8MP_IOMUXC_I2C4_SCL__PCIE_CLKREQ_B	0x60 /* open drain, pull up */
++			//MX8MP_IOMUXC_I2C4_SCL__PCIE_CLKREQ_B	0x60 /* open drain, pull up */
+ 			MX8MP_IOMUXC_SD1_DATA5__GPIO2_IO07	0x40
+ 			MX8MP_IOMUXC_SD1_DATA5__GPIO2_IO07    0x40  /* RESET_N */
+ 			MX8MP_IOMUXC_SD1_DATA4__GPIO2_IO06    0x40  /* CLKREQ_N */
+ 			MX8MP_IOMUXC_SD1_DATA6__GPIO2_IO08    0x40  /* nPWAKE_N */
+-			MX8MP_IOMUXC_I2C4_SDA__GPIO5_IO21	0x1c4
++			//MX8MP_IOMUXC_I2C4_SDA__GPIO5_IO21	0x1c4
+ 		>;
+ 	};
+ 
+-- 
+2.34.1
+

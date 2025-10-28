@@ -1,0 +1,25 @@
+From 160a02d73b8b283e609533e9337cfe9735ac4db1 Mon Sep 17 00:00:00 2001
+From: harisislam10 <islamharis87@gmail.com>
+Date: Tue, 30 Sep 2025 10:00:16 +0800
+Subject: [PATCH] Adding delayin in 0v5640 camera c file
+
+---
+ drivers/media/i2c/ov5640.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/drivers/media/i2c/ov5640.c b/drivers/media/i2c/ov5640.c
+index 1a40f34a6d8c..14d37903c1c9 100644
+--- a/drivers/media/i2c/ov5640.c
++++ b/drivers/media/i2c/ov5640.c
+@@ -3843,6 +3843,8 @@ static int ov5640_check_chip_id(struct ov5640_dev *sensor)
+ 	if (ret)
+ 		return ret;
+ 
++	msleep(20);
++	
+ 	ret = ov5640_read_reg16(sensor, OV5640_REG_CHIP_ID, &chip_id);
+ 	if (ret) {
+ 		dev_err(&client->dev, "%s: failed to read chip identifier\n",
+-- 
+2.34.1
+

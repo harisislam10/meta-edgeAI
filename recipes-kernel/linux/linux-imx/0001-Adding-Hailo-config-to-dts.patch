@@ -1,0 +1,65 @@
+From 40cd293264100acd8494642f2d4dbeb10a89b351 Mon Sep 17 00:00:00 2001
+From: Haris Islam <islamharis87@gmail.com>
+Date: Tue, 9 Sep 2025 19:32:30 +0800
+Subject: [PATCH] Adding Hailo config to dts
+
+---
+ arch/arm64/boot/dts/freescale/imx8mp-evk.dts | 21 ++++++++++++--------
+ 1 file changed, 13 insertions(+), 8 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-evk.dts b/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
+index ef578dcaa2ce..e58e69eea5d2 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
++++ b/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
+@@ -69,9 +69,9 @@ reg_pcie0: regulator-pcie {
+ 		regulator-name = "MPCIE_3V3";
+ 		regulator-min-microvolt = <3300000>;
+ 		regulator-max-microvolt = <3300000>;
+-		gpio = <&gpio2 6 GPIO_ACTIVE_HIGH>;
+-		enable-active-high;
+-		regulator-always-on;
++		gpio = <&gpio2 6 GPIO_ACTIVE_LOW>;
++		enable-active-low;
++		//regulator-always-on;
+ 	};
+ 
+ 	reg_usb_vbus: regulator-vbus {
+@@ -817,6 +817,8 @@ &pcie {
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&pinctrl_pcie0>;
+ 	reset-gpio = <&gpio2 7 GPIO_ACTIVE_LOW>;
++	hailo-ctrl-gpios = <&gpio2 6 GPIO_ACTIVE_LOW>, /* CLKREQ_N */
++					   <&gpio2 8 GPIO_ACTIVE_LOW>; /* nPWAKE_N */
+ 	clocks = <&clk IMX8MP_CLK_HSIO_ROOT>,
+ 		 <&clk IMX8MP_CLK_PCIE_ROOT>,
+ 		 <&clk IMX8MP_CLK_HSIO_AXI>;
+@@ -827,11 +829,11 @@ &pcie {
+ 	vpcie-supply = <&reg_pcie0>;
+ 	status = "okay";
+ 
+-	wifi_wake_host {
+-		compatible = "nxp,wifi-wake-host";
+-		interrupt-parent = <&gpio5>;
+-		interrupts = <21 IRQ_TYPE_LEVEL_LOW>;
+-		interrupt-names = "host-wake";
++	hailo_host {
++		compatible = "hailo,hm218b1c2lae";
++		reset-gpios = <&gpio2 7 GPIO_ACTIVE_LOW>;   /* PCIE_RESET_N */
++		clkreq-gpios = <&gpio2 6 GPIO_ACTIVE_LOW>;  /* CLKREQ_N */
++		pwake-gpios  = <&gpio2 8 GPIO_ACTIVE_LOW>;  /* nPWAKE_N */
+ 	};
+ };
+ 
+@@ -1212,6 +1214,9 @@ pinctrl_pcie0: pcie0grp {
+ 		fsl,pins = <
+ 			MX8MP_IOMUXC_I2C4_SCL__PCIE_CLKREQ_B	0x60 /* open drain, pull up */
+ 			MX8MP_IOMUXC_SD1_DATA5__GPIO2_IO07	0x40
++			MX8MP_IOMUXC_SD1_DATA5__GPIO2_IO07    0x40  /* RESET_N */
++			MX8MP_IOMUXC_SD1_DATA4__GPIO2_IO06    0x40  /* CLKREQ_N */
++			MX8MP_IOMUXC_SD1_DATA6__GPIO2_IO08    0x40  /* nPWAKE_N */
+ 			MX8MP_IOMUXC_I2C4_SDA__GPIO5_IO21	0x1c4
+ 		>;
+ 	};
+-- 
+2.34.1
+

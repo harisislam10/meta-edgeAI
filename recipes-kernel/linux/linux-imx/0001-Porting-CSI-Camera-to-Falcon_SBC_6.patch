@@ -1,0 +1,25 @@
+From a67af4f4d43c18d879beb4c3490e358e2e3df8a9 Mon Sep 17 00:00:00 2001
+From: harisislam10 <islamharis87@gmail.com>
+Date: Tue, 30 Sep 2025 12:26:02 +0800
+Subject: [PATCH] Porting CSI Camera to Falcon_SBC_6
+
+---
+ arch/arm64/boot/dts/freescale/imx8mp-evk.dts | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-evk.dts b/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
+index 85ea5e6e7aae..5049b8b16a48 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
++++ b/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
+@@ -600,7 +600,7 @@ ov5640_0: ov5640_mipi@3c {
+ 		mipi_csi;
+ 		csi_id = <0>;
+ 		powerdown-gpios = <&pca6416 1 GPIO_ACTIVE_HIGH>;  /* CAM1_EN */
+-		PVDD-supply = <&reg_3p3v>
++		PVDD-supply = <&reg_3p3v>;
+ 		reset-gpios = <&pca6416 2 GPIO_ACTIVE_LOW>;       /* CAM1_RST */
+ 
+ 		status = "okay";
+-- 
+2.34.1
+

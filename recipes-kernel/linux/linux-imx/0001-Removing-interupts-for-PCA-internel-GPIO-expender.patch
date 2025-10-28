@@ -1,0 +1,94 @@
+From 8077d7160838d4600bd135a0e324d7835431bc14 Mon Sep 17 00:00:00 2001
+From: harisislam10 <islamharis87@gmail.com>
+Date: Fri, 26 Sep 2025 15:20:22 +0800
+Subject: [PATCH] Removing interupts for PCA internel GPIO-expender
+
+---
+ arch/arm64/boot/dts/freescale/imx8mp-evk.dts | 64 +++++++++-----------
+ 1 file changed, 30 insertions(+), 34 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-evk.dts b/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
+index d70b567116ce..a538cc76b660 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
++++ b/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
+@@ -666,35 +666,31 @@ &i2c3 {
+ 	pinctrl-0 = <&pinctrl_i2c3>;
+ 	status = "okay";
+ 
+-	pca6416: gpio@20 {
+-		compatible = "ti,tca6416";
+-		reg = <0x20>;
+-		gpio-controller;
+-		#gpio-cells = <2>;
+-		interrupt-controller;
+-		#interrupt-cells = <2>;
+-		pinctrl-names = "default";
+-		pinctrl-0 = <&pinctrl_pca6416_int>;
+-		interrupt-parent = <&gpio1>;
+-		interrupts = <6 IRQ_TYPE_LEVEL_LOW>;   /* Changed to GPIO1_IO06 */
+-		gpio-line-names =
+-			"LED1_EN",
+-			"CAM1_EN",
+-			"CAM1_RST",
+-			"LED2_EN",
+-			"CAM2_EN",
+-			"CAM2_RST",
+-			"LVDS0_RST",
+-			"MIPI_DSI_SHLR",
+-			"MIPI_DSI_UPDN",
+-			"LVDS0_UPDN",
+-			"LVDS0_SHLR",
+-			"MIPI_DSI_RESET",
+-			"LVDS1_SHLR",
+-			"LVDS1_UPDN",
+-			"LVDS1_RST",
+-			"FAN_EN";
+-	};
++    pca6416: gpio@20 {
++        compatible = "ti,tca6416";
++        reg = <0x20>;
++        gpio-controller;
++        #gpio-cells = <2>;
++        /* Remove all interrupt-related properties */
++        gpio-line-names =
++            "LED1_EN",
++            "CAM1_EN",
++            "CAM1_RST",
++            "LED2_EN",
++            "CAM2_EN",
++            "CAM2_RST",
++            "LVDS0_RST",
++            "MIPI_DSI_SHLR",
++            "MIPI_DSI_UPDN",
++            "LVDS0_UPDN",
++            "LVDS0_SHLR",
++            "MIPI_DSI_RESET",
++            "LVDS1_SHLR",
++            "LVDS1_UPDN",
++            "LVDS1_RST",
++            "FAN_EN";
++    };
++};
+ 
+ 	ov5640_1: ov5640_mipi@3c {
+ 		compatible = "ovti,ov5640";
+@@ -1243,11 +1239,11 @@ MX8MP_IOMUXC_GPIO1_IO03__GPIO1_IO03	0x000001c0
+ 		>;
+ 	};
+ 
+-	pinctrl_pca6416_int: pca6416_int_grp {
+-	fsl,pins = <
+-		MX8MP_IOMUXC_GPIO1_IO06__GPIO1_IO06 0x146 /* Input pull-up */
+-	>;
+-};
++//	pinctrl_pca6416_int: pca6416_int_grp {
++//	fsl,pins = <
++//		MX8MP_IOMUXC_GPIO1_IO06__GPIO1_IO06 0x146 /* Input pull-up */
++//	>;
++//};
+ 
+ 
+ 	pinctrl_pcal6408_int: pcal6408-int {
+-- 
+2.34.1
+

@@ -1,0 +1,75 @@
+From 5688176ff00fb1ac448f018f9695c9ef108302bd Mon Sep 17 00:00:00 2001
+From: harisislam10 <islamharis87@gmail.com>
+Date: Thu, 25 Sep 2025 16:30:35 +0800
+Subject: [PATCH] Adding Internel GPIO-Expander
+
+---
+ arch/arm64/boot/dts/freescale/imx8mp-evk.dts | 44 ++++++++++----------
+ 1 file changed, 23 insertions(+), 21 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-evk.dts b/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
+index 3b332317dd10..8d82e8ba6847 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
++++ b/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
+@@ -676,24 +676,26 @@ pca6416: gpio@20 {
+ 		pinctrl-names = "default";
+ 		pinctrl-0 = <&pinctrl_pca6416_int>;
+ 		interrupt-parent = <&gpio1>;
+-		interrupts = <12 IRQ_TYPE_LEVEL_LOW>;
+-		gpio-line-names = "EXT_PWREN1",
+-			"EXT_PWREN2",
+-			"CAN1/I2C5_SEL",
+-			"PDM/CAN2_SEL",
+-			"FAN_EN",
+-			"PWR_MEAS_IO1",
+-			"PWR_MEAS_IO2",
+-			"EXP_P0_7",
+-			"EXP_P1_0",
+-			"EXP_P1_1",
+-			"EXP_P1_2",
+-			"EXP_P1_3",
+-			"EXP_P1_4",
+-			"EXP_P1_5",
+-			"EXP_P1_6",
+-			"EXP_P1_7";
++		interrupts = <6 IRQ_TYPE_LEVEL_LOW>;   /* Changed to GPIO1_IO06 */
++		gpio-line-names =
++			"LED1_EN",
++			"CAM1_EN",
++			"CAM1_RST",
++			"LED2_EN",
++			"CAM2_EN",
++			"CAM2_RST",
++			"LVDS0_RST",
++			"MIPI_DSI_SHLR",
++			"MIPI_DSI_UPDN",
++			"LVDS0_UPDN",
++			"LVDS0_SHLR",
++			"MIPI_DSI_RESET",
++			"LVDS1_SHLR",
++			"LVDS1_UPDN",
++			"LVDS1_RST",
++			"FAN_EN";
+ 	};
++};
+ 
+ 	ov5640_1: ov5640_mipi@3c {
+ 		compatible = "ovti,ov5640";
+@@ -1243,10 +1245,10 @@ MX8MP_IOMUXC_GPIO1_IO03__GPIO1_IO03	0x000001c0
+ 	};
+ 
+ 	pinctrl_pca6416_int: pca6416_int_grp {
+-		fsl,pins = <
+-			MX8MP_IOMUXC_GPIO1_IO12__GPIO1_IO12	0x146 /* Input pull-up. */
+-		>;
+-	};
++	fsl,pins = <
++		MX8MP_IOMUXC_GPIO1_IO06__GPIO1_IO06 0x146 /* Input pull-up */
++	>;
++};
+ 
+ 
+ 	pinctrl_pcal6408_int: pcal6408-int {
+-- 
+2.34.1
+
