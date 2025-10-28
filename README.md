@@ -12,19 +12,17 @@ This branch focuses on:
 - Ensuring smooth integration of Ubuntu packages and BSP drivers
 
 ---
-
 ##  Hardware Platform
-
-| Item | Description |
-|------|--------------|
-| **Board Name** | Falcons1 |
-| **Processor** | NXP i.MX 8M Plus Quad (i.MX8MP) |
-| **RAM** | 8 GB LPDDR4 |
-| **Storage** | eMMC / SD |
-| **Connectivity** | Wi-Fi + Bluetooth (enabled on boot) |
-| **USB** | Type-C with PD, USB 3.0 Hub (USB5807C) |
-| **Display Interface** | MIPI-DSI / HDMI |
-| **OS Base** | Ubuntu-based desktop image |
+| **Item**                | **Description**                                           |
+|-------------------------|-----------------------------------------------------------|
+| **Board Name**          | Falcons1                                                  |
+| **Processor**           | NXP i.MX 8M Plus Quad (i.MX8MP)                           |
+| **RAM**                 | 8 GB LPDDR4                                               |
+| **Storage**             | eMMC / SD                                                 |
+| **Connectivity**        | Wi-Fi + Bluetooth (enabled on boot)                       |
+| **USB**                 | Type-C with PD, USB 3.0 Hub (USB5807C)                    |
+| **Display Interface**   | MIPI-DSI / HDMI                                           |
+| **OS Base**             | Ubuntu-based desktop image                                |
 
 ---
 
