@@ -1,18 +1,22 @@
-# meta-edgeAI (edgeAIdesktop-v1)
+# **`edgeAIdesktop-v1`**
 
-##  Overview
+## Overview
 
-This branch — **`edgeAIdesktop-v1`** — provides the **Yocto meta-layer support for the Elliance Falcons1 desktop configuration**, based on the **NXP i.MX 8M Plus (i.MX8MP)** processor.  
+This branch — **`edgeAIdesktop-v1`** — provides the **Yocto meta-layer support for the Elliance Falcons1 desktop configuration**, based on the **NXP i.MX 8M Plus (i.MX8MP)** processor.
+
 It is designed to build and run an **Ubuntu-based graphical Linux image** optimized for the **Falcons1 custom hardware** platform.
 
-This branch focuses on:
+**This branch focuses on:**
+
 - Enabling a **desktop-class environment** (X11/Wayland-based)
 - Configuring **Wi-Fi**, **Ethernet**, and **USB peripherals**
 - Applying **custom device tree modifications** for the Falcons1 hardware
 - Ensuring smooth integration of Ubuntu packages and BSP drivers
 
 ---
-##  Hardware Platform
+
+## Hardware Platform
+
 | **Item**                | **Description**                                           |
 |-------------------------|-----------------------------------------------------------|
 | **Board Name**          | Falcons1                                                  |
@@ -26,11 +30,12 @@ This branch focuses on:
 
 ---
 
-##  Layer Features
+## Layer Features
 
 The `meta-edgeAI` layer (branch `edgeAIdesktop-v1`) provides:
 
 ###  Device Tree Customization
+
 - Custom DTS: `imx8mp-falcons1-desktop.dts`
 - Peripheral enablement:
   - Wi-Fi/BT module enabled at boot
@@ -40,22 +45,26 @@ The `meta-edgeAI` layer (branch `edgeAIdesktop-v1`) provides:
   - Display and camera pin mux configuration
 
 ###  Ubuntu Image Integration
+
 - Adds support for **Ubuntu-based root filesystem**
 - Preconfigures **GNOME desktop environment**
 - Enables **XWayland** compatibility for graphical applications
 - Auto-starts **NetworkManager** and desktop session on boot
 
 ###  Networking
+
 - Wi-Fi enabled automatically at boot via systemd service
 - Ethernet autoconfigured with DHCP
 - Supports `connman` or `NetworkManager` depending on build setup
 
 ###  USB and Power Delivery
+
 - Integrated USB Type-C controller (HD3SS3220) via I2C
 - Configurable role switching (DRP)
 - Compatible with standard USB PD sink/source devices
 
 ###  Memory Configuration
+
 - Supports **8GB LPDDR4 RAM** initialization
 - Custom LPDDR4 timing parameters via `lpddr_timing.c` integration
 
@@ -63,9 +72,9 @@ The `meta-edgeAI` layer (branch `edgeAIdesktop-v1`) provides:
 
 ##  Build Instructions
 
-> Ensure your Yocto setup already includes NXP’s BSP for i.MX8MP (e.g., `imx-linux-hardknott` or later).
+> Ensure your Yocto setup already includes NXP's BSP for i.MX8MP (e.g., `imx-linux-hardknott` or later).
 
-### 1. Clone BSP and layers
+### 1. Clone BSP and Layers
 
 ```bash
 mkdir -p ~/BSPs/nxp/imxdesktop/sources
@@ -73,3 +82,38 @@ cd ~/BSPs/nxp/imxdesktop/sources
 
 # Clone your custom layer
 git clone -b edgeAIdesktop-v1 https://github.com/<your-username>/meta-edgeAI.git
+```
+
+### 2. Initialize the Build Environment
+
+```bash
+cd ~/BSPs/nxp/imxdesktop
+source setup-environment build
+```
+
+### 3. Add the Custom Layer
+
+In your `bblayers.conf`, append:
+
+```
+${BSPDIR}/sources/meta-edgeAI \
+```
+
+### 4. Build the Image
+
+```bash
+bitbake imx-image-desktop
+```
+
+---
+
+## 📝 Notes
+
+The `edgeAIdesktop-v1` branch is optimized for **desktop and development workloads** on the Falcons1 platform.
+
+**Ideal use cases:**
+
+- Development and testing workstation
+- Edge computing with GUI-based applications
+- Interactive AI/ML applications
+- Multimedia and graphics workloads
