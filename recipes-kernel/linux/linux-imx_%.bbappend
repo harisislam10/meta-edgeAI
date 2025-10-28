@@ -11,6 +11,8 @@ SRC_URI += "file://0001-Kernal-device-tree-modification.patch \
             file://0001-toggle-pcal6408-high.patch \
             file://0001-Update-gpio-hog.patch \
             file://gpio_fragment.cfg \
+            file://docker.cfg \
+            file://nologo.cfg \
             file://pcal6408.cfg"
 
 
@@ -27,8 +29,20 @@ do_configure:append() {
     echo "Merging kernel config fragments..."
     ${S}/scripts/kconfig/merge_config.sh -m -r -O ${B} .config \
         ${WORKDIR}/gpio_fragment.cfg \
-        ${WORKDIR}/pcal6408.cfg
-
+        ${WORKDIR}/pcal6408.cfg \
+        ${WORKDIR}/docker.cfg \
+        ${WORKDIR}/nologo.cfg
+        
+    
     # Finalize the config
     yes "" | oe_runmake olddefconfig
 }
+
+
+
+
+do_configure:append() {
+    
+    yes "" | oe_runmake oldconfig
+}
+

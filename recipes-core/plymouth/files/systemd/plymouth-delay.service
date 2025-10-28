@@ -1,0 +1,14 @@
+# Create file: files/systemd/plymouth-delay.service
+[Unit]
+Description=Plymouth Display Delay
+DefaultDependencies=no
+After=plymouth-start.service
+Before=plymouth-quit.service
+
+[Service]
+Type=oneshot
+ExecStart=/bin/sleep 10
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
