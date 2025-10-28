@@ -1,41 +1,77 @@
-This README file contains information on the contents of the meta-edgeAI layer.
+# meta-edgeAI (edgeAIdesktop-v1)
 
-Please see the corresponding sections below for details.
+##  Overview
 
-Dependencies
-============
+This branch — **`edgeAIdesktop-v1`** — provides the **Yocto meta-layer support for the Elliance Falcons1 desktop configuration**, based on the **NXP i.MX 8M Plus (i.MX8MP)** processor.  
+It is designed to build and run an **Ubuntu-based graphical Linux image** optimized for the **Falcons1 custom hardware** platform.
 
-  URI: <first dependency>
-  branch: <branch name>
+This branch focuses on:
+- Enabling a **desktop-class environment** (X11/Wayland-based)
+- Configuring **Wi-Fi**, **Ethernet**, and **USB peripherals**
+- Applying **custom device tree modifications** for the Falcons1 hardware
+- Ensuring smooth integration of Ubuntu packages and BSP drivers
 
-  URI: <second dependency>
-  branch: <branch name>
+---
 
-  .
-  .
-  .
+##  Hardware Platform
 
-Patches
-=======
+| Item | Description |
+|------|--------------|
+| **Board Name** | Falcons1 |
+| **Processor** | NXP i.MX 8M Plus Quad (i.MX8MP) |
+| **RAM** | 8 GB LPDDR4 |
+| **Storage** | eMMC / SD |
+| **Connectivity** | Wi-Fi + Bluetooth (enabled on boot) |
+| **USB** | Type-C with PD, USB 3.0 Hub (USB5807C) |
+| **Display Interface** | MIPI-DSI / HDMI |
+| **OS Base** | Ubuntu-based desktop image |
 
-Please submit any patches against the meta-edgeAI layer to the xxxx mailing list (xxxx@zzzz.org)
-and cc: the maintainer:
+---
 
-Maintainer: XXX YYYYYY <xxx.yyyyyy@zzzzz.com>
+##  Layer Features
 
-Table of Contents
-=================
+The `meta-edgeAI` layer (branch `edgeAIdesktop-v1`) provides:
 
-  I. Adding the meta-edgeAI layer to your build
- II. Misc
+###  Device Tree Customization
+- Custom DTS: `imx8mp-falcons1-desktop.dts`
+- Peripheral enablement:
+  - Wi-Fi/BT module enabled at boot
+  - USB5807C 7-port hub configuration
+  - HD3SS3220 Type-C DRP port controller
+  - Custom GPIO and I2C bus assignments
+  - Display and camera pin mux configuration
 
+###  Ubuntu Image Integration
+- Adds support for **Ubuntu-based root filesystem**
+- Preconfigures **GNOME desktop environment**
+- Enables **XWayland** compatibility for graphical applications
+- Auto-starts **NetworkManager** and desktop session on boot
 
-I. Adding the meta-edgeAI layer to your build
-=================================================
+###  Networking
+- Wi-Fi enabled automatically at boot via systemd service
+- Ethernet autoconfigured with DHCP
+- Supports `connman` or `NetworkManager` depending on build setup
 
-Run 'bitbake-layers add-layer meta-edgeAI'
+###  USB and Power Delivery
+- Integrated USB Type-C controller (HD3SS3220) via I2C
+- Configurable role switching (DRP)
+- Compatible with standard USB PD sink/source devices
 
-II. Misc
-========
+###  Memory Configuration
+- Supports **8GB LPDDR4 RAM** initialization
+- Custom LPDDR4 timing parameters via `lpddr_timing.c` integration
 
---- replace with specific information about the meta-edgeAI layer ---
+---
+
+##  Build Instructions
+
+> Ensure your Yocto setup already includes NXP’s BSP for i.MX8MP (e.g., `imx-linux-hardknott` or later).
+
+### 1. Clone BSP and layers
+
+```bash
+mkdir -p ~/BSPs/nxp/imxdesktop/sources
+cd ~/BSPs/nxp/imxdesktop/sources
+
+# Clone your custom layer
+git clone -b edgeAIdesktop-v1 https://github.com/<your-username>/meta-edgeAI.git
