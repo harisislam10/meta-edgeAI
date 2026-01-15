@@ -1,0 +1,75 @@
+From 29a8d6dce091d21834087c687a3402f63b262944 Mon Sep 17 00:00:00 2001
+From: harisislam10 <islamharis87@gmail.com>
+Date: Fri, 31 Oct 2025 15:41:07 +0800
+Subject: [PATCH] Adding ADC IC to dts
+
+---
+ arch/arm64/boot/dts/freescale/imx8mp-evk.dts | 31 ++++++++++++++++----
+ 1 file changed, 25 insertions(+), 6 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-evk.dts b/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
+index c0afabf5fb48..658894dd7273 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
++++ b/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
+@@ -79,7 +79,7 @@ reg_usb_vbus: regulator-vbus {
+ 		regulator-name = "USB_VBUS";
+ 		regulator-min-microvolt = <5000000>;
+ 		regulator-max-microvolt = <5000000>;
+-		gpio = <&gpio1 14 GPIO_ACTIVE_HIGH>;
++		//gpio = <&gpio1 14 GPIO_ACTIVE_HIGH>;
+ 		enable-active-high;
+ 		regulator-always-on;
+ 	};
+@@ -706,6 +706,18 @@ codec: nau8822@1a {
+ 		MICVDD-supply = <&reg_audio_pwr>;
+ 	};
+ 
++	adc: adc128d818@1d {
++		compatible = "ti,adc128d818";
++		reg = <0x1d>;
++		pinctrl-names = "default";
++		pinctrl-0 = <&pinctrl_adc_int>;
++		interrupt-parent = <&gpio1>;
++		interrupts = <14 IRQ_TYPE_LEVEL_LOW>; /* GPIO1_IO14 active low */
++		#address-cells = <1>;
++		#size-cells = <0>;
++		status = "okay";
++	};
++
+ };
+ 
+ &i2c3 {
+@@ -1391,11 +1403,11 @@ MX8MP_IOMUXC_UART2_TXD__UART2_DCE_TX	0x140
+ 		>;
+ 	};
+ 
+-	pinctrl_usb1_vbus: usb1grp {
+-		fsl,pins = <
+-			MX8MP_IOMUXC_GPIO1_IO14__GPIO1_IO14		0x10
+-		>;
+-	};
++	//pinctrl_usb1_vbus: usb1grp {
++	//	fsl,pins = <
++	//		MX8MP_IOMUXC_GPIO1_IO14__GPIO1_IO14		0x10
++	//	>;
++	//};
+ 
+ 	pinctrl_uart3: uart3grp {
+ 		fsl,pins = <
+@@ -1564,6 +1576,13 @@ pinctrl_csi_mclk: csi_mclk_grp {
+ 			MX8MP_IOMUXC_GPIO1_IO15__CCM_CLKO2	0x50
+ 		>;
+ 	};
++
++	pinctrl_adc_int: adcintgrp {
++		fsl,pins = <
++			MX8MP_IOMUXC_GPIO1_IO14__GPIO1_IO14 0x19
++		>;
++	};
++
+ };
+ 
+ &vpu_g1 {
+-- 
+2.34.1
+

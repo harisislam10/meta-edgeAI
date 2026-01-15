@@ -1,0 +1,47 @@
+From a4ebda6190a4da96e1d75d001214ddf6d49e72f5 Mon Sep 17 00:00:00 2001
+From: harisislam10 <islamharis87@gmail.com>
+Date: Wed, 31 Dec 2025 13:36:05 +0800
+Subject: [PATCH] enable bluetooth
+
+---
+ arch/arm64/boot/dts/freescale/imx8mp-evk.dts | 17 ++---------------
+ 1 file changed, 2 insertions(+), 15 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-evk.dts b/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
+index 3e992e434d3b..05694db95229 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
++++ b/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
+@@ -1050,19 +1050,6 @@ &uart3 {
+ 	assigned-clock-parents = <&clk IMX8MP_SYS_PLL1_80M>;
+ 	fsl,uart-has-rtscts;
+ 	status = "okay";
+-
+-	bluetooth {
+-        compatible = "brcm,bcm4373-bt";
+-        max-speed = <3000000>; // Common baud rate for BT, adjust if Murata specifies otherwise
+-        
+-        // Bluetooth Control GPIOs through PCAL6408A
+-        // BT_HOST_WAKE connected to PCAL6408A P1
+-        host-wakeup-gpios = <&pcal6408a 1 GPIO_ACTIVE_HIGH>; // **PCAL6408A Pin P1**
+-        // BT_DEV_WAKE connected to PCAL6408A P2
+-        device-wakeup-gpios = <&pcal6408a 2 GPIO_ACTIVE_HIGH>; // **PCAL6408A Pin P2**
+-        // BT_REG_EN (assuming P4 as in previous schematic, if different, adjust)
+-        shutdown-gpios = <&pcal6408a 4 GPIO_ACTIVE_HIGH>; // **PCAL6408A Pin P4 (if BT_REG_EN)**
+-    };
+ };
+ //Adding Uart 4 
+ 
+@@ -1429,8 +1416,8 @@ MX8MP_IOMUXC_UART2_TXD__UART2_DCE_TX	0x140
+ 
+ 	pinctrl_uart3: uart3grp {
+ 		fsl,pins = <
+-			MX8MP_IOMUXC_ECSPI1_SCLK__UART3_DCE_RX		0x140
+-			MX8MP_IOMUXC_ECSPI1_MOSI__UART3_DCE_TX		0x140
++			MX8MP_IOMUXC_UART3_RXD__UART3_DCE_RX		0x140
++			MX8MP_IOMUXC_UART3_TXD__UART3_DCE_TX		0x140
+ 			MX8MP_IOMUXC_ECSPI1_SS0__UART3_DCE_RTS		0x140
+ 			MX8MP_IOMUXC_ECSPI1_MISO__UART3_DCE_CTS		0x140
+ 		>;
+-- 
+2.34.1
+

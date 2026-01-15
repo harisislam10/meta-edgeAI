@@ -1,0 +1,25 @@
+From 95a8791ed2489812b2e1d6e500369d7d5ac66f51 Mon Sep 17 00:00:00 2001
+From: harisislam10 <islamharis87@gmail.com>
+Date: Mon, 3 Nov 2025 17:29:58 +0800
+Subject: [PATCH] Enabling SD card-4
+
+---
+ arch/arm64/boot/dts/freescale/imx8mp-evk.dts | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-evk.dts b/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
+index 5f2ef818fae1..46626e9a343f 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
++++ b/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
+@@ -1337,7 +1337,7 @@ MX8MP_IOMUXC_GPIO1_IO03__GPIO1_IO03	0x000001c0
+ 
+ 	pinctrl_pcal6408_int: pcal6408-int {
+ 		fsl,pins = <
+-			MX8MP_IOMUXC_GPIO2_IO10__GPIO2_IO10  0x1c6
++			MX8MP_IOMUXC_SD1_RESET_B__GPIO2_IO10  0x1c6
+ 		>;
+ 	};
+ 
+-- 
+2.34.1
+

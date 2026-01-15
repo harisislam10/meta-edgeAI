@@ -1,0 +1,80 @@
+From f047c1efb49de2538b1bc246e4315f82dfebe0c0 Mon Sep 17 00:00:00 2001
+From: harisislam10 <islamharis87@gmail.com>
+Date: Thu, 18 Dec 2025 10:32:51 +0800
+Subject: [PATCH] Enabling-Bluetooth-1
+
+---
+ arch/arm64/boot/dts/freescale/imx8mp-evk.dts | 35 +++++---------------
+ 1 file changed, 8 insertions(+), 27 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-evk.dts b/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
+index 3021e4e0159b..07c5dae2fbac 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
++++ b/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
+@@ -592,7 +592,6 @@ pcal6408a: gpio@21 {
+ 		wifi-bt-enable-pins {
+     		gpio-hog;
+     		gpios = <0 GPIO_ACTIVE_HIGH>, // P0: wl-reg-en
+-    	        	<2 GPIO_ACTIVE_HIGH>, // P2: bt-dev-wake
+            		 	<4 GPIO_ACTIVE_HIGH>; // P4: bt-reg-on
+     		output-high;
+     		line-name = "murata_wifi_bt_power";
+@@ -1045,24 +1044,10 @@ &usb_dwc3_1 {
+ 
+ &uart3 {
+ 	pinctrl-names = "default";
+-	pinctrl-0 = <&pinctrl_uart3>;
+-	assigned-clocks = <&clk IMX8MP_CLK_UART3>;
+-	assigned-clock-parents = <&clk IMX8MP_SYS_PLL1_80M>;
+-	fsl,uart-has-rtscts;
+-	status = "okay";
++    pinctrl-0 = <&pinctrl_uart3>;
++    status = "okay";
++    uart-has-rtscts = <0>;
+ 
+-	bluetooth {
+-        compatible = "brcm,bcm4373-bt";
+-        max-speed = <3000000>; // Common baud rate for BT, adjust if Murata specifies otherwise
+-        
+-        // Bluetooth Control GPIOs through PCAL6408A
+-        // BT_HOST_WAKE connected to PCAL6408A P1
+-        host-wakeup-gpios = <&pcal6408a 1 GPIO_ACTIVE_HIGH>; // **PCAL6408A Pin P1**
+-        // BT_DEV_WAKE connected to PCAL6408A P2
+-        device-wakeup-gpios = <&pcal6408a 2 GPIO_ACTIVE_HIGH>; // **PCAL6408A Pin P2**
+-        // BT_REG_EN (assuming P4 as in previous schematic, if different, adjust)
+-        shutdown-gpios = <&pcal6408a 4 GPIO_ACTIVE_HIGH>; // **PCAL6408A Pin P4 (if BT_REG_EN)**
+-    };
+ };
+ //Adding Uart 4 
+ 
+@@ -1384,8 +1369,6 @@ pinctrl_uart1: uart1grp {
+ 		fsl,pins = <
+ 			MX8MP_IOMUXC_UART1_RXD__UART1_DCE_RX	0x140
+ 			MX8MP_IOMUXC_UART1_TXD__UART1_DCE_TX	0x140
+-			MX8MP_IOMUXC_UART3_RXD__UART1_DCE_CTS	0x140
+-			MX8MP_IOMUXC_UART3_TXD__UART1_DCE_RTS	0x140
+ 		>;
+ 	};
+ 
+@@ -1415,13 +1398,11 @@ MX8MP_IOMUXC_UART2_TXD__UART2_DCE_TX	0x140
+ 	//};
+ 
+ 	pinctrl_uart3: uart3grp {
+-		fsl,pins = <
+-			MX8MP_IOMUXC_ECSPI1_SCLK__UART3_DCE_RX		0x140
+-			MX8MP_IOMUXC_ECSPI1_MOSI__UART3_DCE_TX		0x140
+-			MX8MP_IOMUXC_ECSPI1_SS0__UART3_DCE_RTS		0x140
+-			MX8MP_IOMUXC_ECSPI1_MISO__UART3_DCE_CTS		0x140
+-		>;
+-	};
++    	fsl,pins = <
++        	MX8MP_IOMUXC_UART3_TXD__UART3_DTE_RX   0x1c6
++        	MX8MP_IOMUXC_UART3_RXD__UART3_DTE_TX  0x1c6
++    	>;
++	};
+ 
+ // Adding uart4 pinctrl group.
+ 	pinctrl_uart4: uart4grp {
+-- 
+2.34.1
+

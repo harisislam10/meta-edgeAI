@@ -1,0 +1,68 @@
+From 3eb50030d8674ae0ac74b6f870fbe04355cbbd61 Mon Sep 17 00:00:00 2001
+From: harisislam10 <islamharis87@gmail.com>
+Date: Thu, 13 Nov 2025 09:51:22 +0800
+Subject: [PATCH] Adding Lvds node
+
+---
+ arch/arm64/boot/dts/freescale/imx8mp-evk.dts | 39 ++++++++++++++++----
+ 1 file changed, 31 insertions(+), 8 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-evk.dts b/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
+index 2e18637c96d4..1e2b7e3eb9cd 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
++++ b/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
+@@ -849,20 +849,43 @@ &lcdif3 {
+ };
+ 
+ &ldb {
+-	status = "okay";
+-
+-	lvds-channel@0 {
+-		status = "okay";
+-
++    status = "okay";
++    split-mode = <0>;
++    dual-chanel = <0>;
++    lvds-channel@0 {
++        fsl,data-mapping = "jedia";
++        fsl,data-width = <24>;
++        status = "okay";
++        panel@0 {
++            compatible = "panel-lvds";
++            label = "hm8282-panel";
++            data-mapping = "jeida-24";
++            panel-timing {
++				clock-frequency = <51000000>;
++                hactive = <1024>;
++                vactive = <600>;
++                hback-porch = <160>;
++                hfront-porch = <160>;
++                hsync-len = <10>;
++                vback-porch = <23>;
++                vfront-porch = <12>;
++                vsync-len = <1>;
++                hsync-active = <0>;
++                vsync-active = <0>;
++                de-active = <1>;
++                pixelclk-active = <0>;
++             };			
++        };
+ 		port@1 {
+ 			reg = <1>;
+ 
+ 			lvds_out: endpoint {
+ 				remote-endpoint = <&it6263_in>;
+ 			};
+-		};
+-	};
+-};
++ 		};
++
++    };
++ };
+ 
+ &ldb_phy {
+ 	status = "okay";
+-- 
+2.34.1
+

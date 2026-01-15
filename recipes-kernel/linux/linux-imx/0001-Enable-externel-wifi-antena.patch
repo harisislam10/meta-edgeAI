@@ -1,0 +1,49 @@
+From 2df6f0f49ce4d412bd6608e733b3d66714305ab1 Mon Sep 17 00:00:00 2001
+From: harisislam10 <islamharis87@gmail.com>
+Date: Wed, 24 Dec 2025 15:59:34 +0800
+Subject: [PATCH] Enable externel wifi antena
+
+---
+ arch/arm64/boot/dts/freescale/imx8mp-evk.dts | 19 +++++++++++++++++++
+ 1 file changed, 19 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-evk.dts b/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
+index 4950668e4359..a86d903ace49 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
++++ b/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
+@@ -1091,6 +1091,19 @@ brcmfmac: wifi@0 {
+     };
+ };
+ 
++
++&gpio2 {
++    pinctrl-names = "default";
++    pinctrl-0 = <&pinctrl_wifi_antenna>;
++    
++    wifi-antenna-select {
++        gpio-hog;
++        gpios = <20 GPIO_ACTIVE_HIGH>;
++        output-low;  // LOW = external antenna enabled
++        line-name = "wifi-ext-antenna-enable";
++    };
++};
++
+ &usdhc2 {
+ 	assigned-clocks = <&clk IMX8MP_CLK_USDHC2>;
+ 	assigned-clock-rates = <400000000>;//change for 400MHz to 25MHz
+@@ -1571,6 +1584,12 @@ MX8MP_IOMUXC_GPIO1_IO14__GPIO1_IO14 0x19
+ 		>;
+ 	};
+ 
++	pinctrl_wifi_antenna: wifiantennagrp {
++        fsl,pins = <
++            MX8MP_IOMUXC_SD2_WP__GPIO2_IO20    0x19
++        >;
++    };
++
+ };
+ 
+ &vpu_g1 {
+-- 
+2.34.1
+

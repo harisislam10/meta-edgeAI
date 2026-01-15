@@ -1,0 +1,26 @@
+From add645de8e383114e0212fa54308a6258e78c49c Mon Sep 17 00:00:00 2001
+From: harisislam10 <islamharis87@gmail.com>
+Date: Wed, 31 Dec 2025 14:32:54 +0800
+Subject: [PATCH] enable bluetooth-2
+
+---
+ arch/arm64/boot/dts/freescale/imx8mp-evk.dts | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-evk.dts b/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
+index ea8b0f890e13..15c780c82f65 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
++++ b/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
+@@ -1384,8 +1384,7 @@ pinctrl_uart1: uart1grp {
+ 		fsl,pins = <
+ 			MX8MP_IOMUXC_UART1_RXD__UART1_DCE_RX	0x140
+ 			MX8MP_IOMUXC_UART1_TXD__UART1_DCE_TX	0x140
+-			MX8MP_IOMUXC_UART3_RXD__UART1_DCE_CTS	0x140
+-			MX8MP_IOMUXC_UART3_TXD__UART1_DCE_RTS	0x140
++
+ 		>;
+ 	};
+ 
+-- 
+2.34.1
+

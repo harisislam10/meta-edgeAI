@@ -1,0 +1,41 @@
+From b16bcbe513acfd7372efa0ec1636d2b40509579d Mon Sep 17 00:00:00 2001
+From: harisislam10 <islamharis87@gmail.com>
+Date: Thu, 8 Jan 2026 14:57:10 +0800
+Subject: [PATCH] Adding BLE node in uart3
+
+---
+ arch/arm64/boot/dts/freescale/imx8mp-evk.dts | 11 ++++++++---
+ 1 file changed, 8 insertions(+), 3 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-evk.dts b/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
+index 13418dcf8cd0..edb3417f69cb 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
++++ b/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
+@@ -591,9 +591,7 @@ pcal6408a: gpio@21 {
+                           "bt-reg-on", "NC", "BT_uart_RTS", "BT_uart_CTS";
+ 		wifi-bt-enable-pins {
+     		gpio-hog;
+-    		gpios = <0 GPIO_ACTIVE_HIGH>, // P0: wl-reg-en
+-    	        	<2 GPIO_ACTIVE_HIGH>, // P2: bt-dev-wake
+-           		 	<4 GPIO_ACTIVE_HIGH>; // P4: bt-reg-on
++    		gpios = <0 GPIO_ACTIVE_HIGH>; // P0: wl-reg-en
+     		output-high;
+     		line-name = "murata_wifi_bt_power";
+ 		};
+@@ -1050,6 +1048,13 @@ &uart3 {
+ 	assigned-clock-parents = <&clk IMX8MP_SYS_PLL1_80M>;
+ 	fsl,uart-has-rtscts;
+ 	status = "okay";
++	bluetooth {
++        compatible = "brcm,bcm4373-bt";
++        max-speed = <3000000>; 
++        shutdown-gpios = <&pcal6408a 4 GPIO_ACTIVE_HIGH>; 
++        host-wakeup-gpios = <&pcal6408a 1 GPIO_ACTIVE_HIGH>;  
++        device-wakeup-gpios = <&pcal6408a 2 GPIO_ACTIVE_HIGH>; 
++    };
+ };
+ //Adding Uart 4 
+ 
+-- 
+2.34.1
+

@@ -1,0 +1,48 @@
+From 5e7ce0c16ad2b07614965e8f3dc89d2a0cd0aa8e Mon Sep 17 00:00:00 2001
+From: harisislam10 <islamharis87@gmail.com>
+Date: Fri, 31 Oct 2025 17:28:20 +0800
+Subject: [PATCH] Adding ADC IC to dts-3
+
+---
+ arch/arm64/boot/dts/freescale/imx8mp-evk.dts | 11 ++++++++++-
+ 1 file changed, 10 insertions(+), 1 deletion(-)
+
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-evk.dts b/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
+index 5dc5dedc550a..a9518e0b6e5d 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
++++ b/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
+@@ -134,6 +134,14 @@ bt_sco_codec: bt_sco_codec {
+ 		compatible = "linux,bt-sco";
+ 	};
+ 
++	vref: regulator-vref {
++		compatible = "regulator-fixed";
++    	regulator-name = "vref_3v3";
++    	regulator-min-microvolt = <3300000>;
++    	regulator-max-microvolt = <3300000>;
++    	regulator-always-on;
++};
++
+ 	sound-bt-sco {
+ 		compatible = "simple-audio-card";
+ 		simple-audio-card,name = "bt-sco-audio";
+@@ -593,7 +601,7 @@ wifi-bt-enable-pins {
+ };
+ 
+ &i2c2 {
+-	clock-frequency = <100000>;
++	clock-frequency = <400000>;
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&pinctrl_i2c2>;
+ 	status = "okay";
+@@ -709,6 +717,7 @@ codec: nau8822@1a {
+ 	adc: adc128d818@1d {
+ 		compatible = "ti,adc128d818";
+ 		reg = <0x1d>;
++		vref-supply = <&vref>;
+ 		pinctrl-names = "default";
+ 		pinctrl-0 = <&pinctrl_adc_int>;
+ 		interrupt-parent = <&gpio1>;
+-- 
+2.34.1
+
