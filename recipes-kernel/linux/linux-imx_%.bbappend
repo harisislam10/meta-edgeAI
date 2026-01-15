@@ -1,15 +1,11 @@
 FILESEXTRAPATHS:prepend := "${THISDIR}/linux-imx:"
-SRC_URI += "file://0001-Kernal-device-tree-modification.patch \
-            file://0001-Change-Codec-node-form-i2c3-to-i2c2.patch \
-            file://0001-add-i2c2-node-to-imx8mp-evk-rpmsg.dts.patch \
-            file://0001-Adding-8-bit-Pcal6408a-GPIO-Expender.patch \
-            file://0001-Adding-pinctrl-for-pcal6408.patch \
-            file://0001-Enabling-wifi-and-bluetooth-in-dts.patch \
-            file://0001-Removing-conflict-MX8MP_IOMUXC_GPIO1_IO04.patch \
-            file://0001-Disable-vmmc-from-usdhc2.patch \
-            file://0001-Change-usdhc-frequency-to-25MHZ.patch \
-            file://0001-toggle-pcal6408-high.patch \
-            file://0001-Update-gpio-hog.patch \
+SRC_URI += "file://0001-Falcon-S1-dts-for-edgeAI-v1.patch \
+            file://0001-Falcon-S1-dts-for-edgeAI-v1-2.patch \
+            file://0001-Falcon-S1-dts-for-edgeAI-v1-3.patch \
+            file://0001-Falcon-S1-dts-for-edgeAI-v1-4.patch \
+            file://0001-Falcon-S1-dts-for-edgeAI-v1-5.patch \
+            file://0001-Falcon-S1-dts-for-edgeAI-v1-6.patch \
+            file://0001-Falcon-S1-dts-for-edgeAI-v1-7.patch \
             file://gpio_fragment.cfg \
             file://docker.cfg \
             file://nologo.cfg \
