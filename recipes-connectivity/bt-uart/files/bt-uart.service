@@ -1,0 +1,15 @@
+[Unit]
+Description=Attach Broadcom Bluetooth UART
+Before=bluetooth.service
+After=dev-ttymxc2.device
+Requires=dev-ttymxc2.device
+
+[Service]
+Type=forking
+ExecStart=/usr/bin/hciattach /dev/ttymxc2 bcm43xx 3000000 flow
+ExecStop=/usr/bin/killall hciattach
+Restart=on-failure
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
