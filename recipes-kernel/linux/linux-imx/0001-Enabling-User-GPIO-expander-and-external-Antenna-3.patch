@@ -1,0 +1,25 @@
+From 32489de0e80a9b1370c055cb1d0d57dd506c5a75 Mon Sep 17 00:00:00 2001
+From: harisislam10 <islamharis87@gmail.com>
+Date: Tue, 10 Mar 2026 11:35:07 +0800
+Subject: [PATCH] Enabling User GPIO expander and external Antenna-3
+
+---
+ arch/arm64/boot/dts/freescale/imx8mp-evk.dts | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-evk.dts b/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
+index 58e86597db9f..252f1699825d 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
++++ b/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
+@@ -1590,7 +1590,7 @@ MX8MP_IOMUXC_GPIO1_IO02__WDOG1_WDOG_B	0x166
+ 
+ 	pinctrl_csi0_pwn: csi0_pwn_grp {
+ 		fsl,pins = <
+-			MX8MP_IOMUXC_SD1_STROBE__GPIO2_IO11	0x10
++		//	MX8MP_IOMUXC_SD1_STROBE__GPIO2_IO11	0x10
+ 		>;
+ 	};
+ 
+-- 
+2.34.1
+
