@@ -1,0 +1,34 @@
+/dts-v1/;
+
+/* Inherit all the SoM-level hardware */
+#include "imx8mp-evk.dts" 
+#include "falcon-common.dtsi"
+
+/ {
+    model = "Falcon-S1 Standard (Big BB)";
+    compatible = "fsl,imx8mp-evk", "fsl,imx8mp";
+};
+
+/* Enable Dual Gigabit Ethernet (EQOS + FEC) */
+&eqos {
+    status = "okay";
+};
+
+&fec {
+    status = "okay";
+};
+
+/* Enable CAN-FD interfaces  */
+&flexcan1 {
+    status = "okay";
+};
+
+&flexcan2 {
+    status = "okay";
+};
+
+/* PCIe is physically present but disabled by default 
+   unless the AI module is specifically requested */
+&pcie {
+    status = "disabled";
+};

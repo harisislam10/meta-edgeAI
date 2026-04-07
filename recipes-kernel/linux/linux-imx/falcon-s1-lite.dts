@@ -1,0 +1,31 @@
+/dts-v1/;
+
+/* Inherit all the SoM-level hardware (RAM, eMMC, WiFi, Audio) */
+#include "imx8mp-evk.dts" 
+#include "falcon-common.dtsi"
+
+/ {
+    model = "Falcon-S1 Lite (Education BB)";
+    compatible = "fsl,imx8mp-evk", "fsl,imx8mp";
+
+    /*  board-specific metadata will be added here if needed */
+};
+
+/* Enable the primary Gigabit Ethernet (EQOS) */
+&eqos {
+    status = "okay";
+};
+
+/* Disable the second Ethernet (FEC)  */
+&fec {
+    status = "disabled";
+};
+
+/* Disable PCIe - No M.2 slot on Lite version */
+&pcie {
+    status = "disabled";
+};
+
+/* Disable CAN  */
+&flexcan1 { status = "disabled"; };
+&flexcan2 { status = "disabled"; };

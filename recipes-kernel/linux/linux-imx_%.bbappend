@@ -1,44 +1,30 @@
-FILESEXTRAPATHS:prepend := "${THISDIR}/linux-imx:"
-SRC_URI += "file://0001-Falcon-S1-dts-for-edgeAI-v1.patch \
-            file://0001-Falcon-S1-dts-for-edgeAI-v1-2.patch \
-            file://0001-Falcon-S1-dts-for-edgeAI-v1-3.patch \
-            file://0001-Falcon-S1-dts-for-edgeAI-v1-4.patch \
-            file://0001-Falcon-S1-dts-for-edgeAI-v1-5.patch \
-            file://0001-Falcon-S1-dts-for-edgeAI-v1-6.patch \
-            file://0001-Falcon-S1-dts-for-edgeAI-v1-7.patch \
-            file://gpio_fragment.cfg \
-            file://docker.cfg \
-            file://nologo.cfg \
-            file://pcal6408.cfg"
+FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}:"
 
+# Add ALL files from linux-imx  to the build fetcher
+SRC_URI += " \
+    file://falcon-common.dtsi \
+    file://falcon-s1.dts \
+    file://falcon-s1-lite.dts \
+    file://falcon-s1-hailo.dts \
+    file://pcal6408.cfg \
+    file://docker.cfg \
+    file://nologo.cfg \
+    file://gpio_fragment.cfg \
+"
 
-#KERNEL_CONFIG_FRAGMENTS += "gpio_fragment.cfg pcal6408.cfg"
+# Copy the files into the Kernel Source 
 
-do_configure:append() {
-    cd ${B}
-    
-    # Start clean and copy default defconfig
-    oe_runmake mrproper
-    cp ${WORKDIR}/defconfig .config || touch .config
-
-    # Merge all your fragments using kernel's merge_config.sh
-    echo "Merging kernel config fragments..."
-    ${S}/scripts/kconfig/merge_config.sh -m -r -O ${B} .config \
-        ${WORKDIR}/gpio_fragment.cfg \
-        ${WORKDIR}/pcal6408.cfg \
-        ${WORKDIR}/docker.cfg \
-        ${WORKDIR}/nologo.cfg
-        
-    
-    # Finalize the config
-    yes "" | oe_runmake olddefconfig
+do_configure:prepend() {
+    cp ${WORKDIR}/falcon-common.dtsi ${S}/arch/arm64/boot/dts/freescale/
+    cp ${WORKDIR}/falcon-s1.dts      ${S}/arch/arm64/boot/dts/freescale/
+    cp ${WORKDIR}/falcon-s1-lite.dts ${S}/arch/arm64/boot/dts/freescale/
+    cp ${WORKDIR}/falcon-s1-hailo.dts ${S}/arch/arm64/boot/dts/freescale/
 }
 
+# Register the output targets
 
-
-
-do_configure:append() {
-    
-    yes "" | oe_runmake oldconfig
-}
-
+KERNEL_DEVICETREE:append = " \
+    freescale/falcon-s1.dtb \
+    freescale/falcon-s1-lite.dtb \
+    freescale/falcon-s1-hailo.dtb \
+"

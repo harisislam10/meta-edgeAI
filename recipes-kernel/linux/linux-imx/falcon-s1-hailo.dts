@@ -1,0 +1,20 @@
+/dts-v1/;
+
+/* Inherit everything from the Standard board*/
+#include "imx8mp-evk.dts" 
+#include "falcon-common.dtsi"
+
+/ {
+    model = "Falcon-S1 Edge AI (Hailo-8)";
+};
+
+/* Enable PCIe for the Hailo-8 M.2 Module */
+&pcie {
+    status = "okay";
+    ext_osc = <0>; /* Use internal SOC clock for PCIe */
+};
+
+/* Ensure the PCIe Endpoint mode is disabled so it acts as a Host */
+&pcie_ep {
+    status = "disabled";
+};
