@@ -1,0 +1,7 @@
+# WIC kickstart for Falcon-S1 (i.MX8MP)
+# Provides a boot partition for flash.bin and a rootfs partition
+
+part --source rawcopy --sourceparams="file=imx-boot" --ondisk mmcblk --no-table --align ${IMX_BOOT_SEEK}
+part / --source rootfs --ondisk mmcblk --fstype=ext4 --label root --align 4096
+
+bootloader --ptable msdos
